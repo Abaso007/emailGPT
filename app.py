@@ -15,9 +15,7 @@ topic = st.text_input(label="Topic", value="")
 
 tone = st.radio("Tone", ("excited", "happy", "neutral", "sad", "angry"), index=2)
 
-generate_email = st.button("Generate Email")
-
-if generate_email:
+if generate_email := st.button("Generate Email"):
     job = {
         "sender": sender,
         "recipient": recipient,

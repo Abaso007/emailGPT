@@ -22,8 +22,7 @@ class Chatter:
             the instructions/dialogue provided to ChatGPT
         """
         self.chatbot.reset_chat()
-        message = self.chatbot.get_chat_response(prompt)["message"]
-        return message
+        return self.chatbot.get_chat_response(prompt)["message"]
 
     def parse_job(self, job):
         """Creates a prompt from a job dict
@@ -43,19 +42,19 @@ class Chatter:
         prompt = "An example of ".format(tone=job["tone"])
 
         if job["tone"] in ["excited", "angry"]:
-            prompt += "an %s email " % job["tone"]
+            prompt += f'an {job["tone"]} email '
         elif job["tone"] in ["happy", "sad"]:
-            prompt += "a %s email " % job["tone"]
+            prompt += f'a {job["tone"]} email '
         else:  # includes "neutral"
             prompt += "an email "
         if job["sender"] != "":
-            prompt += "from %s " % job["sender"]
+            prompt += f'from {job["sender"]} '
         if job["recipient"] != "":
-            prompt += "to %s " % job["recipient"]
+            prompt += f'to {job["recipient"]} '
         if job["subject"] != "":
-            prompt += "with the subject line '%s' " % job["subject"]
+            prompt += f"""with the subject line '{job["subject"]}' """
         if job["topic"] != "":
-            prompt += "about %s " % job["topic"]
+            prompt += f'about {job["topic"]} '
 
         while prompt[-1] == " ":
             prompt = prompt[:-1]
@@ -77,5 +76,4 @@ class Chatter:
             }
         """
         prompt = self.parse_job(job)
-        message = self.get_response(prompt)
-        return message
+        return self.get_response(prompt)
